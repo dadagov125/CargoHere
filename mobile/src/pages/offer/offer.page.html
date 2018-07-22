@@ -1,0 +1,168 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Предложение</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="openDetailsPanel()" color="stable" block>
+                <ion-icon>
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<g>
+	<g>
+		<path d="M447.933,103.629c-0.034-3.076-1.224-6.09-3.485-8.352L352.683,3.511c-0.004-0.004-0.007-0.005-0.011-0.008
+			C350.505,1.338,347.511,0,344.206,0H89.278C75.361,0,64.04,11.32,64.04,25.237v461.525c0,13.916,11.32,25.237,25.237,25.237
+			h333.444c13.916,0,25.237-11.32,25.237-25.237V103.753C447.96,103.709,447.937,103.672,447.933,103.629z M356.194,40.931
+			l50.834,50.834h-49.572c-0.695,0-1.262-0.567-1.262-1.262V40.931z M423.983,486.763c0,0.695-0.566,1.261-1.261,1.261H89.278
+			c-0.695,0-1.261-0.566-1.261-1.261V25.237c0-0.695,0.566-1.261,1.261-1.261h242.94v66.527c0,13.916,11.322,25.239,25.239,25.239
+			h66.527V486.763z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path d="M362.088,164.014H149.912c-6.62,0-11.988,5.367-11.988,11.988c0,6.62,5.368,11.988,11.988,11.988h212.175
+			c6.62,0,11.988-5.368,11.988-11.988C374.076,169.381,368.707,164.014,362.088,164.014z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path d="M362.088,236.353H149.912c-6.62,0-11.988,5.368-11.988,11.988c0,6.62,5.368,11.988,11.988,11.988h212.175
+			c6.62,0,11.988-5.368,11.988-11.988C374.076,241.721,368.707,236.353,362.088,236.353z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path d="M362.088,308.691H149.912c-6.62,0-11.988,5.368-11.988,11.988c0,6.621,5.368,11.988,11.988,11.988h212.175
+			c6.62,0,11.988-5.367,11.988-11.988C374.076,314.06,368.707,308.691,362.088,308.691z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path d="M256,381.031H149.912c-6.62,0-11.988,5.368-11.988,11.988c0,6.621,5.368,11.988,11.988,11.988H256
+			c6.62,0,11.988-5.367,11.988-11.988C267.988,386.398,262.62,381.031,256,381.031z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+                </ion-icon>
+            </button>
+            <button ion-button icon-only (click)="openMapPanel()" color="stable" block>
+                <ion-icon name="map"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <ion-card>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="http://scma.com.ua/wp-content/uploads/2015/02/user.png">
+            </ion-avatar>
+
+            <h3>{{offerOwner?offerOwner.firstName:''}} {{offerOwner?offerOwner.lastName:''}}</h3>
+            <p>{{offerOwner?offerOwner.phone:''}}</p>
+            <p>{{offerOwner?offerOwner.email:''}}</p>
+        </ion-item>
+
+
+        <ion-card-content>
+            Текст: {{offer.text}}
+        </ion-card-content>
+
+        <ion-item>
+            <p>Статус: {{offerStatusText(offer.status)}}</p>
+
+            <div ion-row="" justify-content-between="">
+                <ion-badge item-start>
+                    {{offer.created| date}}
+                </ion-badge>
+                <ion-badge item-end>
+                    {{ offer.price | currency:'RUB '}}
+                </ion-badge>
+            </div>
+
+        </ion-item>
+
+
+    </ion-card>
+
+    <ion-list>
+        <ion-item class="tp-offer-comment" ion-row align-items-start *ngFor="let msg of sortedByCreatedMessages()">
+            <ion-avatar *ngIf="isMyMessage(msg)" item-end>
+                <img src="http://scma.com.ua/wp-content/uploads/2015/02/user.png">
+            </ion-avatar>
+
+            <ion-avatar *ngIf="!isMyMessage(msg)" item-start>
+                <img src="http://scma.com.ua/wp-content/uploads/2015/02/user.png">
+            </ion-avatar>
+
+            <ion-card>
+                <ion-card-content text-wrap>
+                    <h6>{{msg.text}}</h6>
+
+                    <div class="tp-font-12 tp-color-666">
+                        {{msg.created|date:'hh:mm dd MMM'}}
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+
+</ion-content>
+
+
+<ion-footer>
+
+    <ion-toolbar *ngIf="!isAccepted() && !isRejected() && !isMyOffer()">
+
+        <button start (click)="reject()" ion-button color="danger" block>
+            Отклонить
+        </button>
+        <button end (click)="accept()" ion-button color="secondary" block>
+            Принять
+        </button>
+
+    </ion-toolbar>
+
+    <ion-item *ngIf="isAccepted()">
+        <ion-input type="text" [(ngModel)]="textInput" placeholder="Введите текст"></ion-input>
+        <button [disabled]="!textInput || textInput.length<1" type="submit" item-end ion-fab mini
+                (click)="sendComment()">
+            <ion-icon name="send"></ion-icon>
+        </button>
+    </ion-item>
+</ion-footer>

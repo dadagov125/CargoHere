@@ -1,0 +1,116 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{actionText}}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <form class="tp-panel-form" *ngIf="actionType=='create'||actionType=='edit'" [formGroup]="form">
+        <ion-item>
+            <ion-label stacked>
+                Описание
+            </ion-label>
+            <ion-textarea formControlName="description" [(ngModel)]="cargo.description"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label>Тип</ion-label>
+            <ion-select formControlName="type" [(ngModel)]="cargo.type" okText="Выбрать" cancelText="Отменить">
+                <ion-option *ngFor="let t of cargoTypes">{{t}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                Вес <sup>kg</sup>
+            </ion-label>
+            <ion-input formControlName="weight" [(ngModel)]="cargo.weight" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                Объем <sup>m3</sup>
+            </ion-label>
+            <ion-input formControlName="volume" [(ngModel)]="cargo.volume" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                Цена
+            </ion-label>
+            <ion-input formControlName="price" [(ngModel)]="cargo.price" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Когда</ion-label>
+            <ion-datetime formControlName="dateTime"
+                          [monthShortNames]="monthShortNames"
+                          [min]="minYear" [max]="maxYear"
+
+                          displayFormat="MMM D, YYYY HH:mm"
+                          pickerFormat="MMM D YYYY HH:mm"
+                          [(ngModel)]="cargo.dateTime"
+                          cancelText="Отменить"
+                          doneText="Выбрать"></ion-datetime>
+        </ion-item>
+
+        <ion-item ion-row class="tp-form-group">
+            <ion-label col-3>Откуда</ion-label>
+            <ion-auto-complete item-content
+
+                               [options]="{placeholder:'Укажите адрес'}"
+                               [(ngModel)]="cargo.from"
+                               (ionAutoInput)="ionAutoInput('from',$event)"
+                               formControlName="from"
+                               [dataProvider]="autoCompleteAddressService"></ion-auto-complete>
+
+            <ion-spinner *ngIf="isCurrentAddressLoading" item-content (click)="getCurrentAddress()"></ion-spinner>
+            <ion-icon *ngIf="!isCurrentAddressLoading" (click)="getCurrentAddress(true)" item-content
+                      name="locate"></ion-icon>
+
+        </ion-item>
+        <ion-item ion-row class="tp-form-group">
+            <ion-label col-3>Куда</ion-label>
+            <ion-auto-complete item-content [options]="{placeholder:'Укажите адрес'}"
+                               (ionAutoInput)="ionAutoInput('to',$event)"
+                               [(ngModel)]="cargo.to"
+                               formControlName="to"
+                               [dataProvider]="autoCompleteAddressService"></ion-auto-complete>
+        </ion-item>
+
+        <ion-item ion-row [hidden]="!canCalculateDistance()">
+            <ion-label>
+                Растояние <sup>км</sup>
+            </ion-label>
+            <ion-input placeholder="Расчитайте расстояние" [(ngModel)]="cargo.distance" formControlName="distance"
+                       disabled="true"
+                       type="number"></ion-input>
+
+            <ion-spinner *ngIf="isDistanceCalculation" item-content (click)="calculateDistance()"></ion-spinner>
+
+
+            <ion-icon *ngIf="!isDistanceCalculation" (click)="calculateDistance()"
+                      item-content name="refresh"></ion-icon>
+
+        </ion-item>
+
+    </form>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <button *ngIf="actionType!='view'" [disabled]="form.invalid" (click)="ok()" ion-button color="stable" block>
+            {{actionText}}
+        </button>
+        <button *ngIf="actionType=='view' &&isOwner()" (click)="changeMode('edit')" ion-button color="stable" block>
+            Редактировать
+        </button>
+    </ion-toolbar>
+</ion-footer>

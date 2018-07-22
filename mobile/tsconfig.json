@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es2015",
+      "es6",
+      "es5",
+      "dom"
+    ],
+    "target": "es2015",
+    "types": [
+      "yandex-maps"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": false,
+    "sourceMap": true,
+    "removeComments": true,
+    "strict": false,
+    "rootDirs": [
+      "./"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@app/env": [
+        "environments/environment"
+      ]
+    }
+  },
+  "include": [
+    "./src",
+    "../common"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": false,
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}
+

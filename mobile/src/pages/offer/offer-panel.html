@@ -1,0 +1,60 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{relationName}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <form [formGroup]="form">
+        <ion-item>
+            <ion-label stacked>
+                Сообщение
+            </ion-label>
+            <ion-textarea formControlName="text" [(ngModel)]="offer.text"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                Цена
+            </ion-label>
+            <ion-input formControlName="price" [(ngModel)]="offer.price" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="relation==1">
+            <ion-label>Мой транспорт</ion-label>
+            <ion-select formControlName="transport" [(ngModel)]="offer.transport" okText="Выбрать"
+                        cancelText="Отменить">
+                <ion-option *ngFor="let t of transports" [value]="t">
+                    <span>{{t.mark}}</span> <span>{{t.model}}</span> - <span>{{t.type}}</span>
+                </ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="relation==0">
+            <ion-label>Мой груз</ion-label>
+            <ion-select formControlName="cargo" [(ngModel)]="offer.cargo" okText="Выбрать"
+                        cancelText="Отменить">
+                <ion-option *ngFor="let c of cargos" [value]="t">
+                    <span>{{c.description}}</span> - <span>{{c.type}}</span>
+                </ion-option>
+            </ion-select>
+        </ion-item>
+
+    </form>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <button *ngIf="actionType=='create'" [disabled]="form.invalid" (click)="ok()" ion-button color="stable" block>
+            {{actionType=='create'?'Предложить':'Сохранить'}}
+        </button>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,155 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Просмотр</ion-title>
+
+        <ion-buttons end>
+            <button *ngIf="isMyOffer()" ion-button icon-only (click)="openMapPanel()" color="stable" block>
+                <ion-icon name="map"></ion-icon>
+            </button>
+            <button ion-button icon-only *ngIf="isOwner()" (click)="edit()" color="stable" block>
+                <ion-icon name="create"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <ion-card>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="http://scma.com.ua/wp-content/uploads/2015/02/user.png">
+            </ion-avatar>
+
+            <h3>{{cargo.owner.firstName}} {{cargo.owner.lastName}}</h3>
+            <p>{{cargo.owner.phone}}</p>
+            <p>{{cargo.owner.email}}</p>
+        </ion-item>
+        <ion-item>
+            <p>{{cargo.type}}</p>
+            <h3> Описание: {{cargo.description}}</h3>
+
+
+        </ion-item>
+
+        <ion-item>
+            <div item-start> Откуда</div>
+            <ion-badge class="tp-text-ellipsis" item-end>
+                {{cargo.from}}
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+            <div item-start>Куда</div>
+
+            <ion-badge class="tp-text-ellipsis" item-end>
+                {{cargo.to}}
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+            Расстояние
+            <ion-badge item-end>
+                {{ cargo.distance }} km
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+
+            Когда
+            <ion-badge item-end>
+                {{ cargo.dateTime |date:'d MMM HH:mm' }}
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+
+            Вес
+            <ion-badge item-end>
+                {{cargo.weight}} <sub>кг</sub>
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+
+            Объем
+            <ion-badge item-end>
+                {{cargo.volume}} <sup>m3</sup>
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+
+            Цена
+            <ion-badge item-end>
+                {{ cargo.price&&cargo.price>0?(cargo.price | currency:'RUB '):'договорная'}}
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+            Перевозчик
+            <ion-badge item-end>
+                {{cargo.transport?"назначен":"не назначен" }}
+            </ion-badge>
+        </ion-item>
+
+    </ion-card>
+
+
+    <ion-card *ngIf="isMyOffer()">
+        <ion-card-content (click)="offerPage(getMyOffer())">
+
+            <ion-card-title ion-row="" justify-content-between="">
+                <h2>
+                    Ваше предложение
+                </h2>
+
+                <p>{{getMyOffer().price | currency:'RUB'}}</p>
+
+            </ion-card-title>
+
+            <h3 text-nowrap class="tp-text-ellipsis">
+                Текст: {{getMyOffer().text}}
+            </h3>
+        </ion-card-content>
+
+    </ion-card>
+
+
+    <ion-list *ngIf="isOwner()">
+        <ion-title>
+            <h6>Предложении</h6>
+        </ion-title>
+
+        <ion-item *ngFor="let o of cargo.offers" (click)="offerPage(o)">
+            <ion-avatar item-start>
+                <img src="http://scma.com.ua/wp-content/uploads/2015/02/user.png">
+            </ion-avatar>
+            <h4 class="tp-text-ellipsis">
+                Текст: {{o.text}}
+            </h4>
+            <div ion-row justify-content-between="">
+
+                <p item-start>{{o.created| date}}</p>
+                <p item-end=""> {{ o.price | currency:'RUB'}}</p>
+            </div>
+
+        </ion-item>
+
+    </ion-list>
+
+
+</ion-content>
+
+<ion-footer *ngIf="!isOwner() && !isMyOffer()">
+    <ion-toolbar>
+        <button ion-button color="stable" (click)="doOffer()" block>
+            Предложить транспорт
+        </button>
+    </ion-toolbar>
+</ion-footer>

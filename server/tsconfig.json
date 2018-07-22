@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es7",
+      "es6",
+      "es5",
+      "dom"
+    ],
+    "target": "es6",
+    "types": [
+      "ts-node",
+      "node",
+      "chai",
+      "mocha",
+      "reflect-metadata",
+      "chai-as-promised"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": false,
+    "sourceMap": true,
+    "removeComments": true,
+    "strict": false,
+    "outDir": "./dist",
+    "rootDirs": [
+      "./",
+      "../common"
+    ],
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": [
+    "./node_modules",
+    "./dist",
+    "./test"
+  ],
+  "compileOnSave": true,
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}
+

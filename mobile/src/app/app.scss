@@ -1,0 +1,68 @@
+// http://ionicframework.com/docs/v2/theming/
+// Server Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+@import "../../node_modules/ionic2-auto-complete/auto-complete";
+
+.tp-panel-form {
+  .tp-form-group {
+    ion-auto-complete {
+      //width: 100%;
+      overflow: visible;
+      .searchbar-search-icon {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
+      .searchbar-ios {
+
+        border-bottom: 0.55px solid rgba(0, 0, 0, 0);
+        background: rgba(0, 0, 0, 0);
+
+        padding-left: 0px;
+        margin-left: 0px;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+      }
+
+      .searchbar-md .searchbar-input {
+        padding-left: 0px;
+        padding-right: 35px;
+        margin-left: 0px;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+      }
+    }
+  }
+
+  .item-block {
+    overflow: visible;
+  }
+  .item {
+    contain: unset;
+  }
+}
+
+.tp-text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tp-font-12 {
+  font-size: 12px;
+}
+
+.tp-color-666 {
+  color: #666;
+}

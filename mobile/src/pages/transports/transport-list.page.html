@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Перевозчики
+        </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="transportPanel('create')">
+                <ion-icon name="add"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-item *ngFor="let transport of transportList" color="none" (click)="transportPanel('view',transport)">
+
+            <h2>{{transport.type}}</h2>
+            <p>{{transport.mark}}, {{transport.model}}</p>
+            <p>{{transport.routes.length}} маршрута</p>
+        </ion-item>
+    </ion-list>
+</ion-content>

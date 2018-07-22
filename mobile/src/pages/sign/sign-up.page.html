@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Signup
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding id="page6">
+    <form [formGroup]="myGroup">
+        <ion-list id="signup-list10">
+            <ion-item id="signup-input3">
+                <ion-label>
+                    Firstname
+                </ion-label>
+                <ion-input type="text" formControlName="firstname" [(ngModel)]="signupData.firstname"></ion-input>
+            </ion-item>
+            <ion-item id="signup-input6">
+                <ion-label>
+                    Lastname
+                </ion-label>
+                <ion-input type="text" formControlName="lastname" [(ngModel)]="signupData.lastname"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    Phone
+                </ion-label>
+                <ion-input type="tel" formControlName="phone" [(ngModel)]="signupData.phone"></ion-input>
+            </ion-item>
+            <ion-item id="signup-input4">
+                <ion-label>
+                    Email
+                </ion-label>
+                <ion-input type="email" formControlName="email" [(ngModel)]="signupData.email"></ion-input>
+            </ion-item>
+            <ion-item id="signup-input5">
+                <ion-label>
+                    Password
+                </ion-label>
+                <ion-input type="password" formControlName="password" [(ngModel)]="signupData.password"></ion-input>
+            </ion-item>
+        </ion-list>
+        <button [disabled]="group.invalid" (click)="signup()" ion-button color="stable" block>
+            Sign up
+        </button>
+    </form>
+</ion-content>

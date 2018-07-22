@@ -1,0 +1,178 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+        </ion-title>
+
+        <ion-buttons end>
+            <!--<button margin-left="" margin-right="" ion-button icon-only (click)="showMap=!showMap">-->
+            <!--<ion-icon name="map"></ion-icon>-->
+            <!--</button>-->
+            <button margin-left="" margin-right="" ion-button icon-only (click)="cargoPanel('create')">
+                <ion-icon name="add"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+
+</ion-header>
+
+<!--<ion-header>-->
+<!--<ion-toolbar>-->
+<!--<ion-segment [(ngModel)]="icons" color="secondary">-->
+<!--<ion-segment-button value="camera">-->
+<!--<ion-icon name="camera"></ion-icon>-->
+<!--</ion-segment-button>-->
+<!--<ion-segment-button value="bookmark">-->
+<!--<ion-icon name="bookmark"></ion-icon>-->
+<!--</ion-segment-button>-->
+<!--</ion-segment>-->
+<!--</ion-toolbar>-->
+<!--</ion-header>-->
+
+
+<ion-content>
+    <!--<map [hidden]="!showMap"></map>-->
+
+
+    <div [ngSwitch]="segmentState">
+
+        <ion-list *ngSwitchCase="'NEW'">
+            <ion-card class="tp-cargo-list-card" *ngFor="let cargo of cargos" color="none"
+                      (click)="cargoPanel('view',cargo)">
+
+                <ion-card-content>
+
+                    <div ion-row="">
+                        <div col-12="">
+                            <h3 text-nowrap class="tp-text-ellipsis">{{cargo.description}}</h3>
+                            <h4 text-nowrap class="tp-text-ellipsis">{{cargo.type}}</h4>
+
+                            <div ion-row="" justify-content-between="">
+                                <h4>
+                                    {{ cargo.price&&cargo.price>0?(cargo.price | currency:'RUB'):'договорная'}}
+                                </h4>
+                                <h4> {{ cargo.distance}} km</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ion-item-divider></ion-item-divider>
+
+                    <div ion-row="">
+                        <div>
+                            <div class="circle-blue"></div>
+                            <div class="line"></div>
+                            <div class="circle-green"></div>
+                        </div>
+                        <div col-11>
+                            <div class="tp-text-ellipsis address">{{cargo.from}}</div>
+
+                            <div class="tp-text-ellipsis address"> {{cargo.to}}</div>
+                        </div>
+                    </div>
+                </ion-card-content>
+
+            </ion-card>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'OFFERS'">
+            <div class="tp-cargo-offers" *ngFor="let o of myOffersWait" (click)="offerPage(o)">
+                <ion-card>
+
+                    <ion-card-content>
+                        <div ion-row="" justify-content-between="">
+                            <h4>Груз</h4>
+                            <p> {{ o.cargo.distance}} km</p>
+                            <p>
+                                {{ o.cargo.price&&o.cargo.price>0?(o.cargo.price | currency:'RUB'):'договорная'}}
+                            </p>
+
+                        </div>
+                        <h3 text-nowrap class="tp-text-ellipsis">
+                            Описание: {{o.cargo.description}}
+                        </h3>
+                    </ion-card-content>
+
+                </ion-card>
+                <ion-item>
+
+                    <div padding-left="" ion-row="" justify-content-between="">
+                        <h4>Предложение</h4>
+
+                        <p>
+                            {{ o.price | currency:'RUB'}}
+                        </p>
+                    </div>
+
+                    <div padding-left="" ion-row justify-content-between="">
+                        <p>Статус: {{offerStatusText(o.status)}}</p>
+                        <p> {{o.created|date}}</p>
+                    </div>
+                </ion-item>
+
+            </div>
+        </ion-list>
+        <ion-list *ngSwitchCase="'PROCESS'">
+
+            <div class="tp-cargo-offers" *ngFor="let o of myOffersAccepted" (click)="offerPage(o)">
+                <ion-card>
+
+                    <ion-card-content>
+                        <div ion-row="" justify-content-between="">
+                            <h4>Груз</h4>
+                            <p> {{ o.cargo.distance}} km</p>
+                            <p>
+                                {{ o.cargo.price&&o.cargo.price>0?(o.cargo.price | currency:'RUB'):'договорная'}}
+                            </p>
+
+                        </div>
+                        <h3 text-nowrap class="tp-text-ellipsis">
+                            Описание: {{o.cargo.description}}
+                        </h3>
+                    </ion-card-content>
+
+                </ion-card>
+                <ion-item>
+
+                    <div padding-left="" ion-row="" justify-content-between="">
+                        <h4>Предложение</h4>
+
+                        <p>
+                            {{ o.price | currency:'RUB'}}
+                        </p>
+                    </div>
+
+                    <div padding-left="" ion-row justify-content-between="">
+                        <p>Статус: {{offerStatusText(o.status)}}</p>
+                        <p> {{o.created|date}}</p>
+                    </div>
+                </ion-item>
+
+            </div>
+
+        </ion-list>
+    </div>
+
+</ion-content>
+
+
+<ion-footer>
+
+    <ion-segment [(ngModel)]="segmentState" color="secondary" (ionChange)="segmentChange()">
+        <ion-segment-button value="NEW">
+            Новые
+        </ion-segment-button>
+        <ion-segment-button value="OFFERS">
+            Предложении
+        </ion-segment-button>
+        <ion-segment-button value="PROCESS">
+            Активные
+        </ion-segment-button>
+    </ion-segment>
+
+</ion-footer>
+

@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+#  mongo:
+#    image: mongo:3.0
+#    ports:
+#      - "27017:27017"
+#    command: "--smallfiles"
+#    volumes:
+#      - /usr/local/data/mongo/db:/data/db
+#      - /usr/local/data/mongo/configdb:/data/configdb
+#  redis:
+#    image: redis
+#    ports:
+#      - 6379:6379
+  postgres:
+    image: postgres:10
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=1234567
+    ports:
+      - 5432:5432
+
+  app:
+    build: .
+    environment:
+      - NODE_ENV=prod
+    ports:
+      - 80:80
+    links:
+      - postgres:postgres
+    depends_on:
+      - postgres
+
+

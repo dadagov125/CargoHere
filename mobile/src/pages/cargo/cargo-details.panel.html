@@ -1,0 +1,72 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Детали доставки</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()" color="stable" block>
+                <ion-icon name="close"></ion-icon>
+            </button>
+
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+    <ion-card class="tp-cargo-list-card">
+
+        <ion-item>
+            Расстояние
+            <ion-badge item-end>
+                {{ offer.cargo.distance }} km
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+
+            Цена
+            <ion-badge item-end>
+                {{ offer.cargo.price&&offer.cargo.price>0?(offer.cargo.price | currency:'RUB '):'договорная'}}
+            </ion-badge>
+        </ion-item>
+
+        <ion-item>
+            <h2>{{offer.cargo.owner.firstName}} {{offer.cargo.owner.lastName}}</h2>
+        </ion-item>
+
+        <ion-item>
+            <p>{{offer.cargo.owner.phone}}</p>
+            <p>{{offer.cargo.owner.email}}</p>
+        </ion-item>
+
+        <ion-item>
+            <div ion-row="">
+                <div>
+                    <div class="circle-blue"></div>
+                    <div class="line"></div>
+                    <div class="circle-green"></div>
+                </div>
+                <div col-11>
+                    <div class="tp-text-ellipsis address">{{offer.cargo.from}}</div>
+
+                    <div class="tp-text-ellipsis address"> {{offer.cargo.to}}</div>
+                </div>
+            </div>
+        </ion-item>
+
+
+    </ion-card>
+
+</ion-content>
+
+
+<ion-footer *ngIf="isMyOffer() && offer.cargo.status !=3">
+    <ion-toolbar>
+        <button ion-button color="stable" block (click)="delivered()">
+            Груз деставлен
+        </button>
+    </ion-toolbar>
+</ion-footer>

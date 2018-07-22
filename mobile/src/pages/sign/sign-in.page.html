@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Login
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <form [formGroup]="myGroup">
+        <ion-list>
+            <ion-item>
+                <ion-label>
+                    Email
+                </ion-label>
+                <ion-input formControlName="email" [(ngModel)]="signinData.email" type="email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    Password
+                </ion-label>
+                <ion-input formControlName="password" [(ngModel)]="signinData.password" type="password"
+                           placeholder=""></ion-input>
+            </ion-item>
+        </ion-list>
+        <div class="spacer" style="height:40px;"></div>
+        <button [disabled]="group.invalid" (click)="signin()" ion-button color="stable" block>
+            Log in
+        </button>
+
+        <button ion-button clear color="positive" block on-click="goToSignup()">
+            Or create an account
+        </button>
+        <!--{{ myGroup.get('email').invalid }}-->
+        <!--{{myGroup}}-->
+    </form>
+</ion-content>
+
+<!--<div [formGroup]="myGroup">-->
+<!--<div formGroupName="person">-->
+<!--<input formControlName="firstName">-->
+<!--</div>-->
+<!--</div>-->
+
+<!--In your class:-->
+
+<!--this.myGroup = new FormGroup({-->
+<!--person: new FormGroup({ firstName: new FormControl() })-->
+<!--});-->

@@ -1,0 +1,175 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{actionText}}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <!--create and edit mode-->
+    <div *ngIf="actionType=='create'||actionType=='edit'">
+        <ion-list>
+            <ion-item>
+                <ion-label stacked>
+                    Марка
+                </ion-label>
+                <ion-input [(ngModel)]="transport.mark" type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>
+                    Модель
+                </ion-label>
+                <ion-input [(ngModel)]="transport.model" type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Тип</ion-label>
+                <ion-select [(ngModel)]="transport.type" okText="Выбрать" cancelText="Отменить">
+                    <ion-option *ngFor="let t of transportTypes">{{t}}</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item-group>
+
+                <ion-item-divider color="light">Маршруты</ion-item-divider>
+
+
+                <ion-item-group *ngFor="let r of transport.routes; index as i">
+                    <ion-item>
+                        <ion-label fixed>Откуда</ion-label>
+                        <ion-input [(ngModel)]="r.from"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label fixed>Куда</ion-label>
+                        <ion-input [(ngModel)]="r.to"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label fixed>Цена</ion-label>
+                        <ion-input type="number" [(ngModel)]="r.price"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Когда</ion-label>
+                        <ion-datetime
+                                [monthShortNames]="monthShortNames"
+                                [min]="minYear"
+                                [max]="maxYear"
+                                displayFormat="MMMM D, YYYY HH:mm"
+                                pickerFormat="MMM D YYYY HH:mm"
+                                [(ngModel)]="r.dateTime"
+                                cancelText="Отменить"
+                                doneText="Выбрать"></ion-datetime>
+                    </ion-item>
+                    <ion-item-divider color=""></ion-item-divider>
+                </ion-item-group>
+
+
+                <ion-item>
+                    <ion-buttons end>
+                        <button ion-button icon-only (click)="addRoute()">
+                            <ion-icon name="add"></ion-icon>
+                        </button>
+                        <button *ngIf="transport.routes.length>0" ion-button icon-only (click)="removeRoute()">
+                            <ion-icon name="remove"></ion-icon>
+                        </button>
+                    </ion-buttons>
+                </ion-item>
+
+
+            </ion-item-group>
+
+
+        </ion-list>
+        <div class="spacer" style="height:40px;"></div>
+    </div>
+
+
+    <!--view mode-->
+    <div *ngIf="actionType=='view'">
+
+        <ion-card>
+            <ion-card-header>Транспорт</ion-card-header>
+            <ion-card-content>
+                <ion-list>
+
+                    <ion-item>
+                        <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+                        Марка
+                        <ion-badge item-end>
+                            {{transport.mark}}
+                        </ion-badge>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+                        Модель
+                        <ion-badge item-end>
+                            {{transport.model}}
+                        </ion-badge>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+                        Тип
+                        <ion-badge item-end>
+                            {{transport.type}}
+                        </ion-badge>
+                    </ion-item>
+
+
+                </ion-list>
+            </ion-card-content>
+
+        </ion-card>
+
+
+        <ion-item-divider color="light">Маршруты</ion-item-divider>
+
+
+        <ion-list *ngFor="let r of transport.routes; index as i">
+            <ion-card>
+                <ion-card-header>{{r.from}} -> {{r.to}}</ion-card-header>
+                <ion-card-content>
+                    <ion-item>
+                        <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+                        Цена
+                        <ion-badge item-end>
+                            {{r.price}}
+                        </ion-badge>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+                        Когда
+                        <ion-badge item-end>
+                            {{r.dateTime|date:'d MMM HH:mm'}}
+                        </ion-badge>
+                    </ion-item>
+                </ion-card-content>
+            </ion-card>
+
+        </ion-list>
+
+
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <button *ngIf="actionType!='view'" [disabled]="false" (click)="ok()" ion-button color="stable" block>
+            {{actionText}}
+        </button>
+        <button *ngIf="isOwner() && actionType=='view'" (click)="changeMode('edit')" ion-button color="stable" block>
+            Редактировать
+        </button>
+    </ion-toolbar>
+</ion-footer>

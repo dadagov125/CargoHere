@@ -1,0 +1,113 @@
+
+.tp-cargo-list-card {
+
+  [col-3] {
+    padding: 0px;
+  }
+  [col-12] {
+    padding: 0px;
+    padding-left: 5px;
+  }
+  .card-content-md {
+    padding: 7px;
+    padding-bottom: 4px;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+  h4 {
+    font-size: 12px;
+    font-weight: 300;
+    padding-top: 5px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+  ion-item-divider {
+    margin-bottom: 5px;
+    min-height: 5px;
+    height: 5px;
+  }
+
+  .circle {
+    width: 13px;
+    height: 13px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    margin-right: 5px;
+  }
+  .circle-blue {
+    @extend .circle;
+    background: darkblue;
+    margin-top: 5px;
+  }
+  .circle-green {
+    @extend .circle;
+    background: green;
+  }
+
+  .line {
+    width: 3px;
+    height: 8px;
+    background: darkgray;
+    margin-left: 5px;
+  }
+
+  .badge-md {
+    color: unset;
+    background-color: unset;
+  }
+
+  ion-avatar {
+    height: 100%;
+    width: 100%;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .address {
+
+    padding: 2px;
+    text-align: start;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+
+  }
+
+}
+
+.tp-cargo-offers {
+  .label-md {
+    margin: 0px;
+  }
+
+  .item-md {
+    margin-bottom: 15px;
+    margin-top: -4px;
+  }
+
+  .card-md {
+    margin-bottom: 5px;
+  }
+  .item-md.item-block .item-inner {
+    padding-right: 10px;
+
+    border-left-color: #dedede;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-bottom-left-radius: 10px;
+
+    border-right-color: #dedede;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-bottom-right-radius: 10px;
+
+    margin-left: -5px;
+    margin-right: 10px;
+  }
+}
